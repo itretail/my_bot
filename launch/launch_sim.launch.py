@@ -25,6 +25,22 @@ def generate_launch_description():
                 )]), launch_arguments={'use_sim_time': 'true'}.items()
     )
 
+    joy_params = os.path.join(get_package_share_directory('my_bot'),'config','joystick.yaml')
+
+    joy_node = Node(
+            package='joy',
+            executable='joy_node',
+            parameters=[joy_params],
+         )
+
+    teleop_node = Node(
+            package='teleop_twist_joy',
+            executable='teleop_node',
+            name='teleop_node',
+            parameters=[joy_params],
+   #         remappings=[('/cmd_vel','/cmd_vel_joy')]
+         )
+    
     # Include the Gazebo launch file, provided by the gazebo_ros package
     gazebo = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
@@ -42,6 +58,8 @@ def generate_launch_description():
     # Launch them all!
     return LaunchDescription([
         rsp,
+        joy_node,
+        teleop_node,
         gazebo,
         spawn_entity,
     ])
