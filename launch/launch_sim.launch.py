@@ -1,5 +1,4 @@
 import os
-
 from ament_index_python.packages import get_package_share_directory
 
 
@@ -25,8 +24,11 @@ def generate_launch_description():
                 )]), launch_arguments={'use_sim_time': 'true'}.items()
     )
 
-    joy_params = os.path.join(get_package_share_directory('my_bot'),'config','joystick.yaml')
-
+    joy_params = os.path.join(get_package_share_directory(package_name),'config','joystick.yaml')
+#    joy_params = os.path.join('home','ian','ros_ws','src','my_bot','config','joystick.yaml')
+    print(joy_params)
+#    get_logger().info(f'My log message {num}', once=True)
+    
     joy_node = Node(
             package='joy',
             executable='joy_node',
@@ -38,7 +40,7 @@ def generate_launch_description():
             executable='teleop_node',
             name='teleop_node',
             parameters=[joy_params],
-   #         remappings=[('/cmd_vel','/cmd_vel_joy')]
+#            remappings=[('/cmd_vel','/cmd_vel_joy')]
          )
     
     # Include the Gazebo launch file, provided by the gazebo_ros package
