@@ -10,7 +10,7 @@
                 <param name="loop_rate">30</param>
                 <param name="device">/dev/ttyAMA0</param>
                 <param name="baud_rate">57600</param>
-                <param name="timeout">500</param>
+                <param name="timeout">200</param>
                 <param name="enc_counts_per_rev">508.8</param>
             </hardware>
             <joint name="left_wheel_joint">
