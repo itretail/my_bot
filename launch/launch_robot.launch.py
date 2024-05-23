@@ -29,7 +29,21 @@ def generate_launch_description():
     )
 
     
+    joy_params = os.path.join(get_package_share_directory('my_bot'),'config','joystick.yaml')
 
+    joy_node = Node(
+            package='joy',
+            executable='joy_node',
+            parameters=[joy_params, {'use_sim_time': False}],
+         )
+
+    teleop_node = Node(
+            package='teleop_twist_joy',
+            executable='teleop_node',
+            name='teleop_node',
+            parameters=[joy_params, {'use_sim_time': False}],
+            remappings=[('/cmd_vel','/diff_cont/cmd_vel_unstamped')]
+         )
 
     robot_description = Command(['ros2 param get --hide-type /robot_state_publisher robot_description'])
 
@@ -91,6 +105,8 @@ def generate_launch_description():
 
     # Launch them all!
     return LaunchDescription([
+        joy_node,
+        teleop_node,        
         rsp,
         delayed_controller_manager,
         delayed_diff_drive_spawner,
