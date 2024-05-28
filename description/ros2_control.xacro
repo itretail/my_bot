@@ -9,7 +9,7 @@
                 <param name="right_wheel_name">right_wheel_joint</param>
                 <param name="wheel_separation">0.250</param>
                 <param name="loop_rate">10</param>
-                <param name="device">/dev/ttyAMA0</param>
+                <param name="device">/dev/ttyUSB0</param>
                 <param name="baud_rate">57600</param>
                 <param name="timeout">200</param>
                 <param name="enc_counts_per_rev">256</param>
